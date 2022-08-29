@@ -114,6 +114,13 @@
             })
           })
         }
+
+        // affichage du bouton d'installation
+        const installBtn = document.querySelector('.install')
+        window.addEventListener('beforeinstallprompt', event => {
+          event.preventDefault()
+          installBtn.classList.remove('hidden')
+        })
       </script>
       
 </body>
