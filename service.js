@@ -1,4 +1,4 @@
-const version = '1.01'
+const version = 1.02
 
 self.addEventListener('install', event => {
     console.log("Log from event 'INSTALL' in SW version " + version)
