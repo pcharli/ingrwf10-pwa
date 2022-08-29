@@ -1,8 +1,8 @@
-var testAjax = false
+let testAjax = false
 axios.get("https://api.irail.be/stations/?format=json")
       .then( (response) => { 
           testAjax = true
-          console.log(testAjax)
+          //console.log(testAjax)
           //console.log(response.data.station)
           let liste = ''
           let i = 0
@@ -71,7 +71,9 @@ axios.get("https://api.irail.be/stations/?format=json")
   } //endif
       
       })// first axios
-      .catch(console.log("error"));
-      console.log("end"+testAjax)
+      .catch(
+        //console.log("error")
+        );
+      //console.log("end"+testAjax)
       //doc api
       //https://docs.irail.be/#liveboard

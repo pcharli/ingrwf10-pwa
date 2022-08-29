@@ -1,0 +1,38 @@
+{
+    "name" : "Trains au départ",
+    "short_name" : "SNCB",
+    "version" : 1.00,
+    "start_url": "/",
+    "theme_color": "#00D1B2",
+    "background_color": "#00D1B2",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src" : "android-icon-36x36.png",
+            "sizes": "36x36",
+            "type" : "image/png"
+        },
+        {
+            "src" : "android-icon-96x96.png",
+            "sizes": "96x96",
+            "type" : "image/png"
+        },
+        {
+            "src" : "android-icon-192x192.png",
+            "sizes": "192x192",
+            "type" : "image/png"
+        },
+        {
+            "src" : "android-icon-192x192.png",
+            "sizes": "192x192",
+            "type" : "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src" : "android-icon-512x512.png",
+            "sizes": "512x512",
+            "type" : "image/png"
+        }
+    ]
+}
