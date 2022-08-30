@@ -1,6 +1,6 @@
 if('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('service.js')
+      navigator.serviceWorker.register('service-workbox.js')
       .then((reg) => {
         console.log('notify', 'Sercice worker is started @ scope ' + reg.scope)
       })
