@@ -142,7 +142,7 @@ self.addEventListener("fetch", event => {
     //console.log(requestUrl.pathname)
 
     //on va appliquer la stratégie CacheFirst si le path commence par '/assets'
-    if(requestUrl.pathname.startsWith('/') || requestUrl.pathname.includes('.css')  || requestUrl.pathname.includes('.js')  || requestUrl.pathname.includes('.html') || requestUrl.pathname.includes('.png')) {
+    if(requestUrl.pathname.startsWith('/assets') || requestUrl.pathname.includes('.css')  || requestUrl.pathname.includes('.js')  || requestUrl.pathname.includes('.html') || requestUrl.pathname.includes('.png')) {
         // renvoi au navigateur
         event.respondWith(
             getResponseFromCacheFirst(ASSETS_CACHE_NAME, event.request)
