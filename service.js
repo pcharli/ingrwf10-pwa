@@ -92,11 +92,10 @@ const getResponseFromNetworkFirst = (
     request
 ) => {
     // test si connexion
-    return fetch(request)
+    fetch(request)
     .then( response => {
-        console.log(response)
-        if(response) {
-            console.log('internet')
+        console.log('response online : ' + response)
+        console.log('internet')
         //exécution du setter
         setResponseCache(
             cacheName,
@@ -105,25 +104,28 @@ const getResponseFromNetworkFirst = (
         )
         //on envoie la réponse à la stratégie
         return response
-        } else {
-            console.log('offline')
+    })
+    .catch(error => {
+        console.log('error api' + error)
+        console.log('offline')
             //pas IntersectionObserverEntry, donc on lance le getter
             const responseCache = getResponseFromCache(
                 cacheName, request
             )
-            .then(responseCache => {
+            .then(response => {
                 //si en cache
-                if(responseCache) {
-                    return responseCache
-                } else//sinon, c'est mort
+                if(response) {
+                    console.log(response)
+                    console.log('response offline : ' + response)
+                    return response
+                } else //sinon, c'est mort
                 {
+                    console.log('dead')
                     return 'error'
                 }
             })
-        }
     })
-    .catch(error => console.log(error))
-    
+ 
     //return response
 }
 
@@ -140,7 +142,7 @@ self.addEventListener("fetch", event => {
     //console.log(requestUrl.pathname)
 
     //on va appliquer la stratégie CacheFirst si le path commence par '/assets'
-    if(requestUrl.pathname.startsWith('/assets') || requestUrl.pathname.includes('.css')  || requestUrl.pathname.includes('.js')  || requestUrl.pathname.includes('.html') || requestUrl.pathname.includes('.png')) {
+    if(requestUrl.pathname.startsWith('/') || requestUrl.pathname.includes('.css')  || requestUrl.pathname.includes('.js')  || requestUrl.pathname.includes('.html') || requestUrl.pathname.includes('.png')) {
         // renvoi au navigateur
         event.respondWith(
             getResponseFromCacheFirst(ASSETS_CACHE_NAME, event.request)
@@ -148,7 +150,7 @@ self.addEventListener("fetch", event => {
     }
 
     //On va appliquer statégie NetworkFirts si path commence par 'https://'
-    if(requestUrl.pathname.startsWith('/stations/')) {
+    if(requestUrl.pathname.startsWith('/stations2/')) {
         console.log('appel de api')
         // renvoi au navigateur
         event.respondWith(
