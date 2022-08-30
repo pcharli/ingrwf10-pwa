@@ -10,8 +10,90 @@ self.addEventListener('activate', event => {
     return self.clients.claim()
 })
 
+
+/* 
+//simple fetch général for install btn 
+//on écoute chaque requête
 self.addEventListener('fetch', event => {
     const requestUrl = new URL(
         event.request.url
     )
+})
+*/
+
+// définition d'un cache pour les assets
+const ASSETS_CACHE_NAME = "assets"
+
+// 2 méthodes : getter et setter pour le cache
+
+const getResponseFromCache = (
+    cacheName,
+    request
+) => {
+    // On ouvre le bon cache
+    return caches.open(cacheName)
+    // on récupère le cache
+    .then( cache => {
+        // on retourne le fichier qui correspond à la requête
+        return cache.match(request)
+    })
+}
+
+const setResponseCache = (
+    cacheName,
+    request,
+    response
+) => {
+    // on ouvre le bon cache
+    return caches.open(cacheName)
+    .then(cache => {
+        return cache.put(request, response)
+    })
+}
+
+//Stratégies de cache
+//Méthode de statégie cacheFirst
+const getResponseFromCacheFirst = (
+    cacheName,
+    request
+) => {
+    //on exécute le getter en premier
+    const response = getResponseFromCache(
+        cacheName, request
+    )
+    .then( response  => {
+        // est-ce que la réponse à request existe dans le cache
+        if( response ) {
+            // on retourne la réponse à la stratégie
+            return response
+        }
+        else { //le fichier correspondant à request n'est pas dans le cache
+            return fetch(request)
+            .then( response => {
+                setResponseCache(
+                    cacheName,
+                    request,
+                    response.clone()
+                )
+                //on envoie la réponse à la stratégie
+                return response
+            })
+        }
+    })
+    //renvoie au fetch
+    return response
+}
+//si request, on l'intercepte
+self.addEventListener("fetch", event => {
+    //on récupère l'url de la request exécutée par le navigateur
+    const requestUrl = new URL(
+        event.request.url
+    )
+    //on va appliquer la stratégie CacheFirst si le path commence par '/assets'
+    if(requestUrl.pathname.startsWith('/assets')) {
+        // renvoi au navigateur
+        event.respondWith(
+            getResponseFromCacheFirst(ASSETS_CACHE_NAME, event.request)
+        )
+    }
 })
