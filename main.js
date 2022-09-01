@@ -1,4 +1,6 @@
 let testAjax = false
+//simulation d'une connexion lente
+setTimeout(()=> {
 axios.get("https://api.irail.be/stations/?format=json")
       .then( (response) => { 
           testAjax = true
@@ -40,7 +42,8 @@ axios.get("https://api.irail.be/stations/?format=json")
           //request vers la gare
           axios.get(url)
           .then((response) => {
-              console.log(trains = response.data.departures.departure)
+            console.log(response.data.departures.departure)
+              let trains = response.data.departures.departure
               listeTrains = ''
               trains.forEach(element => {
                   departDate = new Date(element.time*1000)
@@ -73,7 +76,10 @@ axios.get("https://api.irail.be/stations/?format=json")
       })// first axios
       .catch(
         //console.log("error")
-        );
+        )
+
+    }, 1)// end setTimeout
+
       //console.log("end"+testAjax)
       //doc api
       //https://docs.irail.be/#liveboard

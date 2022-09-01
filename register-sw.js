@@ -36,3 +36,33 @@ if('serviceWorker' in navigator) {
       deferredPrompt = null
     })
   })
+
+
+  // notifications
+  if ('Notification' in navigator && Notification.permission != 'accordé') {
+    console.log('Demander l\'autorisation de l\'utilisateur')
+    Notification.requestPermission(status => { 
+      console.log('Status:'+status)
+      displayNotification(' Notification activée')
+     })
+     }
+     
+     const displayNotification = notificationTitle => {
+      console.log('display notification')
+      if (Notification.permission == 'granted') {
+        navigator.serviceWorker.getRegistration()
+        .then(reg => { 
+          console.log(reg)
+          const options = { 
+            body : 'Merci d\'avoir autorisé la notification push !',
+            icône : '/android-icon-512x512.png',
+            vibreur : [100, 50, 100],
+            données : { 
+              dateOfArrival : Date.now(),
+              primaryKey : 0
+            }
+          }
+          reg.showNotification(notificationTitle, options )
+        })
+      }
+    } 

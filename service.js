@@ -11,7 +11,7 @@ self.addEventListener('activate', event => {
 })
 
 
-/* 
+/*
 //simple fetch général for install btn 
 //on écoute chaque requête
 self.addEventListener('fetch', event => {
