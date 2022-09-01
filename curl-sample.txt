@@ -1,0 +1,12 @@
+curl https://fcm.googleapis.com/fcm/send -X POST -H "Authorization: key=443998257437" \
+   -H "Content-Type: application/json" \
+   -d '{
+  "data": {
+    "notification": {
+        "title": "FCM Message",
+        "body": "This is an FCM Message",
+        "icon": "/itwonders-web-logo.png",
+    }
+  },
+  "to": " erDy72B86_4:APA91bFtXtPUzyMgyOtfEbCm9ZMuUhjB27zG0scSRsfEH3aq3LBSOj65EYF2H0XlglAqlFKzZUSG9hytBwloPf2NhlFS-e2vfqaCeNZ5PL1mFF2e7DJvTw-7xo6ZYymNIkl4Tn4aGjII"
+}' 
